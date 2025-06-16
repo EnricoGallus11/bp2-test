@@ -16,5 +16,8 @@ jobs:
     - uses: actions/checkout@v4
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag enricogallus/web_server
+    - name: Log in to DockerHub
+      run: echo "${{ secrets.DOCKER_TOKEN }}" | docker login -u "enricogallus" --password-stdin
+
     - name: Push the image to DockerHub
-      run: docker login -u enricogallus -p ${{ secrets.DOCKER_TOKEN }} && docker push enricogallus/web_server
+      run: docker push enricogallus/web_server
